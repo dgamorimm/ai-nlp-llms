@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto 4</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Data Science Academy</h1>
+        <h2>Projeto 4 - Augmented Analytics com Inteligência Artificial e LLMs</h2>
+        <h2>Assistente de IA</h2>
+        <form action="/llms" method="post">
+            <label for="query">Faça uma pergunta:</label>
+            <input type="text" id="query" name="query" required>
+            <button type="submit">Enviar</button>
+        </form>
+        {% if query %}
+            <h2>Pergunta:</h2>
+            <p class="center-text">{{ query }}</p>
+            <h2>Resposta:</h2>
+            <p class="center-text">{{ response }}</p>
+            <form action="/" method="get">
+                <button type="submit">Limpar</button>
+            </form>
+        {% endif %}
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,12 @@
+chromadb
+pypdf
+openai
+langchain
+langchain-community
+pandas
+numpy
+python-dotenv
+tiktoken
+flask-sqlalchemy
+Flask
+

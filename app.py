@@ -28,18 +28,23 @@ doc = read_pdf('documents/')
 embeddings = OpenAIEmbeddings(api_key = config('OPENAI_API_KEY'))
 
 # Aplica o gerador de embeddings aos documentos e armazena no banco de dados vetorial ( quando inicializa o banco ele vai ficar em memória(demanda muito recurso computacional))
+# Esse banco vai armazenar os vetores em memória, mas da para ser utilizado persistindo em disco
 index_name = 'dgamorimm-index'
 index = Chroma.from_documents(documents = doc, embedding = embeddings, collection_name= index_name)
 
 # Define a função de busca por similaridade
+# k = 2 é para procurar os 2 vizinhos mais próximos aplicando o algoritmo de similaridade
 def search_similar(query, k=2):
     matching_results = index.similarity_search(query, k)
     return matching_results
 
 # Cria a instancia do LLM
+# temperature = aumenta ou diminui o nivel de criatividade 
 llm = OpenAI(api_key = config('OPENAI_API_KEY'), temperature= 0.3)
 
-# Cria a chai para o sistema de QA (Perguntas e Respostas)
+# Cria a chain para o sistema de QA (Perguntas e Respostas)
+# load_qa_chain = cria um fluxo de perguntas e respostas
+# stuff = é para criar uma cadeia de resposta sobre qualquer coisa
 chain = load_qa_chain(llm, chain_type="stuff")
 
 # Define a função para obter a respota
